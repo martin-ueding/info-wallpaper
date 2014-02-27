@@ -3,11 +3,12 @@
 
 # Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 
-import argparse
-import configparser
-import subprocess
 from PIL import Image
 from PIL import ImageFont, ImageDraw
+import argparse
+import configparser
+import os.path
+import subprocess
 
 __docformat__ = "restructuredtext en"
 
@@ -15,12 +16,12 @@ def main():
     options = _parse_args()
 
     devices = configparser.ConfigParser()
-    devices.read('hardware.ini')
+    devices.read(os.path.expanduser('~/.config/info-wallpaper/devices.ini'))
 
     ubuntu_regular = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf", 30)
     ubuntu_bold = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 30)
 
-    components_to_list = ['Model', 'CPU', 'RAM', 'GPU', 'HDD', 'OS', 'Resolution', 'PPI', 'Bogomips']
+    components_to_list = ['Model', 'CPU', 'RAM', 'GPU', 'HDD', 'OS', 'Resolution', 'Diagonal', 'PPI', 'Bogomips']
 
 
     for device in devices:
@@ -34,8 +35,8 @@ def main():
         im = Image.open(filename)
         draw = ImageDraw.Draw(im)
 
-        x_pos = 600
-        y_pos = 1200
+        x_pos = 850
+        y_pos = 800
 
         draw.text((x_pos, y_pos), device, font=ubuntu_bold)
         y_pos += 10
