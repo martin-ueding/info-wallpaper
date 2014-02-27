@@ -23,7 +23,6 @@ def main():
 
     components_to_list = ['Model', 'CPU', 'RAM', 'GPU', 'HDD', 'OS', 'Resolution', 'Diagonal', 'PPI', 'Bogomips']
 
-
     for device in devices:
         if device == 'DEFAULT':
             continue
@@ -44,7 +43,6 @@ def main():
         for component in set(devices[device]) - set([x.lower() for x in components_to_list]):
             print('Unknown component:', component)
 
-
         for component in components_to_list:
             if not component in devices[device]:
                 continue
@@ -53,7 +51,6 @@ def main():
             draw.text((x_pos + 180, y_pos), devices[device][component], font=ubuntu_regular)
 
         im.save(device + '.png')
-
 
 def _parse_args():
     """
