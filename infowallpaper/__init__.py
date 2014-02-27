@@ -29,25 +29,6 @@ def main():
 
         filename = 'flow.jpg'
 
-        if 'Resolution' in devices[device]:
-            parts = devices[device]['Resolution'].split()
-            width, height = int(parts[0]), int(parts[2])
-            command = [
-                'convert', filename,
-                '-resize', '{}x{}'.format(width, height),
-                '-gravity', 'center',
-                '-crop', '{}x{}+0+0'.format(width, height), '+repage',
-                'temp.png',
-            ]
-            try:
-                subprocess.check_call(command)
-            except subprocess.CalledProcessError as e:
-                pass
-            else:
-                filename = 'temp.png'
-
-
-
         im = Image.open(filename)
         draw = ImageDraw.Draw(im)
 
