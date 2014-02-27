@@ -4,6 +4,8 @@
 # Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 
 import argparse
+import configparser
+import subprocess
 from PIL import Image
 from PIL import ImageFont, ImageDraw
 
@@ -12,16 +14,57 @@ __docformat__ = "restructuredtext en"
 def main():
     options = _parse_args()
 
-    im = Image.open('flow.jpg')
+    devices = configparser.ConfigParser()
+    devices.read('hardware.ini')
 
-    draw = ImageDraw.Draw(im)
+    ubuntu_regular = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf", 30)
+    ubuntu_bold = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 30)
 
-    # use a truetype font
-    font = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf", 30)
 
-    draw.text((10, 25), "world", font=font)
+    for device in devices:
+        if device == 'DEFAULT':
+            continue
 
-    im.show()
+        print(device)
+
+        filename = 'flow.jpg'
+
+        if 'Resolution' in devices[device]:
+            parts = devices[device]['Resolution'].split()
+            width, height = int(parts[0]), int(parts[2])
+            command = [
+                'convert', filename,
+                '-resize', '{}x{}'.format(width, height),
+                '-gravity', 'center',
+                '-crop', '{}x{}+0+0'.format(width, height), '+repage',
+                'temp.png',
+            ]
+            try:
+                subprocess.check_call(command)
+            except subprocess.CalledProcessError as e:
+                pass
+            else:
+                filename = 'temp.png'
+
+
+
+        im = Image.open(filename)
+        draw = ImageDraw.Draw(im)
+
+        x_pos = 100
+        y_pos = 100
+
+        draw.text((x_pos, y_pos), device, font=ubuntu_bold)
+        y_pos += 10
+
+        for component in ['CPU', 'RAM', 'GPU', 'HDD', 'OS', 'Resolution']:
+            if not component in devices[device]:
+                continue
+            y_pos += 35
+            draw.text((x_pos, y_pos), component, font=ubuntu_regular)
+            draw.text((x_pos + 180, y_pos), devices[device][component], font=ubuntu_regular)
+
+        im.save(device + '.png')
 
 
 def _parse_args():
