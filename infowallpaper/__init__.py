@@ -32,8 +32,8 @@ def main():
         im = Image.open(filename)
         draw = ImageDraw.Draw(im)
 
-        x_pos = 100
-        y_pos = 100
+        x_pos = 200
+        y_pos = 1000
 
         draw.text((x_pos, y_pos), device, font=ubuntu_bold)
         y_pos += 10
