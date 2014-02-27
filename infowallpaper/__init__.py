@@ -20,25 +20,31 @@ def main():
     ubuntu_regular = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf", 30)
     ubuntu_bold = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 30)
 
+    components_to_list = ['Model', 'CPU', 'RAM', 'GPU', 'HDD', 'OS', 'Resolution', 'PPI', 'Bogomips']
+
 
     for device in devices:
         if device == 'DEFAULT':
             continue
 
-        print(device)
+        print('Generating wallpaper for:', device)
 
         filename = 'flow.jpg'
 
         im = Image.open(filename)
         draw = ImageDraw.Draw(im)
 
-        x_pos = 200
-        y_pos = 1000
+        x_pos = 600
+        y_pos = 1200
 
         draw.text((x_pos, y_pos), device, font=ubuntu_bold)
         y_pos += 10
 
-        for component in ['CPU', 'RAM', 'GPU', 'HDD', 'OS', 'Resolution']:
+        for component in set(devices[device]) - set([x.lower() for x in components_to_list]):
+            print('Unknown component:', component)
+
+
+        for component in components_to_list:
             if not component in devices[device]:
                 continue
             y_pos += 35
