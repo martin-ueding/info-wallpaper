@@ -21,7 +21,12 @@ def main():
     ubuntu_regular = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf", 30)
     ubuntu_bold = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 30)
 
-    components_to_list = ['Model', 'CPU', 'RAM', 'GPU', 'HDD', 'OS', 'Resolution', 'Diagonal', 'PPI', 'Bogomips']
+    components_to_list = [
+        'Model', 'CPU', 'RAM', 'GPU', 'HDD', 'Mainboard', 'AC',
+        'OS', 'Key',
+        'Resolution', 'Diagonal', 'PPI',
+        'Bogomips'
+    ]
 
     for device in devices:
         if device == 'DEFAULT':
