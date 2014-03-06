@@ -34,7 +34,7 @@ def main():
 
         print('Generating wallpaper for:', device)
 
-        filename = 'flow.jpg'
+        filename = os.path.expanduser('~/Bilder/Hintergrundbilder/InterfaceLift/01848_flow_2560x1600.jpg')
 
         im = Image.open(filename)
         draw = ImageDraw.Draw(im)
