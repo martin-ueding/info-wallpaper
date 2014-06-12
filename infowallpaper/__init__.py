@@ -25,7 +25,8 @@ def main():
         'Model', 'CPU', 'RAM', 'GPU', 'HDD', 'Mainboard', 'AC',
         'OS', 'Key',
         'Resolution', 'Diagonal', 'PPI',
-        'Bogomips'
+        'Bogomips',
+        'Year',
     ]
 
     for device in devices:
