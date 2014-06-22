@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        {% for hostname, meta in devices.items() if not hostname == 'DEFAULT': %}
+        <h1>{{ hostname }}</h1>
+        <dl>
+            {% for component in ctl: %}
+                {% if component.lower() in meta: %}
+                <dt>{{ component }}</dt>
+                <dd>{{ meta.get(component) }}</dd>
+                {% endif %}
+            {% endfor %}
+        </dl>
+        {% endfor %}
+    </body>
+</html>

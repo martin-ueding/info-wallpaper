@@ -3,12 +3,14 @@
 
 # Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 
-from PIL import Image
-from PIL import ImageFont, ImageDraw
 import argparse
 import configparser
 import os.path
 import subprocess
+
+from PIL import Image
+from PIL import ImageFont, ImageDraw
+import jinja2
 
 __docformat__ = "restructuredtext en"
 
@@ -17,6 +19,9 @@ def main():
 
     devices = configparser.ConfigParser()
     devices.read(os.path.expanduser('~/.config/info-wallpaper/devices.ini'))
+
+    env = jinja2.Environment(loader=jinja2.PackageLoader('infowallpaper', 'templates'))
+    template = env.get_template('template.html')
 
     ubuntu_regular = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf", 30)
     ubuntu_bold = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 30)
@@ -28,6 +33,9 @@ def main():
         'Bogomips',
         'Year',
     ]
+
+    with open('export.html', 'w') as f:
+        f.write(template.render(devices=devices, ctl=components_to_list))
 
     for device in devices:
         if device == 'DEFAULT':
