@@ -27,7 +27,9 @@ def main():
     ubuntu_bold = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf", 30)
 
     components_to_list = [
-        'Model', 'CPU', 'RAM', 'GPU', 'HDD', 'Mainboard', 'AC',
+        'Model', 'CPU', 'RAM', 'GPU', 'HDD', 'SSD',
+        'Mainboard', 'AC',
+        'MAC', 'MAC LAN', 'MAC WLAN',
         'OS', 'Key',
         'Resolution', 'Diagonal', 'PPI',
         'Bogomips',
