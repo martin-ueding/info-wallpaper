@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
 
 import argparse
 import configparser
@@ -28,7 +28,7 @@ def main():
 
     components_to_list = [
         'Model', 'CPU', 'RAM', 'GPU', 'HDD', 'SSD',
-        'Mainboard', 'AC',
+        'Mainboard', 'PSU',
         'MAC', 'MAC LAN', 'MAC WLAN',
         'OS', 'Key',
         'Resolution', 'Diagonal', 'PPI',
